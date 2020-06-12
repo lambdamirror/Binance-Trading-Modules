@@ -6,5 +6,5 @@ CREDIT: This is a modified version from the original module of morozdima.
         For more information, please visit: https://github.com/morozdima/BinanceFuturesPy
         
 Documentation of Binance Futures Websocket can be found here: https://binance-docs.github.io/apidocs/futures/en
- 
-![Alt text](https://github.com/lambdamirror/Binance-Trading-Modules/images/binance_wss.JPG?raw=true "Running websocket on Binance testnet")
+
+![binance_wss](https://user-images.githubusercontent.com/62041906/84467976-09205180-acc1-11ea-9760-6ca3ebc89da4.JPG)
