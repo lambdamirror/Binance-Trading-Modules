@@ -58,7 +58,7 @@ def get_ticks(symbol, start_time, filepath):
 
 def get_klines(symbol, kl_size, start_time, end_time, filepath):
     if isinstance(start_time, int): start_time = pd.to_datetime(start_time, unit='ms').strftime('%d %b %Y %H:%M:%S')
-    if isinstance(end_time, int): end_time = timestr(end_time, end='s')
+    if isinstance(end_time, int): end_time = pd.to_datetime(end_time, unit='ms').strftime('%d %b %Y %H:%M:%S')
     print("\nProcessing data sub {} for {} from {} to {}\n".format(kl_size, symbol, start_time, end_time))
     klns = client.get_historical_klines(symbol, kl_size, start_time, end_time)
     kln_df = pd.DataFrame(klns, columns = ['_t', '_o', '_h', '_l', '_c', '_v','close_time', 'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
