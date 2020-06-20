@@ -7,16 +7,14 @@ Created on Sat Mar 24 00:16:07 2020
 CREDIT: This is a modified version from the original module of morozdima.
         For more information, please visit: https://github.com/morozdima/BinanceFuturesPy
         
-Documentation of Binance Futures Websocket can be found here: https://binance-docs.github.io/apidocs/futures/en
+Docmentation of Binance Futures Websocket can be found here: https://binance-docs.github.io/apidocs/futures/en
 """
 
-from sys import stdout
 import time
 
 import numpy as np
 import pandas as pd
 
-import websocket
 import requests
 import urllib
 import json
@@ -28,26 +26,15 @@ class MarketData:
     
     def __init__(self,
                  testnet: bool = False,
-                 symbol: str = 'btcusdt',
-                 interval: str = '1m'):
-        
+                 symbol: str = 'btcusdt'):
+
         '''
         
         To use TESTNET Binance Futures API  -> testnet = True
         
         To change currency pair             -> symbol = 'ethusdt'
         
-        To change interval                  -> interval = '5m'
-        (m -> minutes
-         h -> hours
-         d -> days
-         w -> weeks
-         M -> months;
-        
-        Valid values: [1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M])
-        
         '''
-
 
         if testnet == True:
             self.http_way = 'http://testnet.binancefuture.com/fapi/v1/'
@@ -55,7 +42,6 @@ class MarketData:
             self.http_way = 'http://fapi.binance.com/fapi/v1/'
         
         self.wss_way = 'wss://fstream.binance.com/ws/'
-        self.interval = interval
         self.symbol = symbol.lower()
 
     def ping(self):
@@ -194,7 +180,11 @@ class Client:
         else:
             self.http_way = 'http://fapi.binance.com/fapi/v1/'
             self.wss_way = 'wss://fstream.binance.com/ws/'
-
+    
+    
+    '''
+    Implied REST method: GET / POST / PUT / DELETE
+    '''
     def _get_request(self,
                       req,
                       query):
@@ -258,7 +248,6 @@ class Client:
             else:
                 return r
 
-#    @staticmethod
     def timestamp(self):
         r = requests.get(f'{self.http_way}time')
         try:
@@ -332,7 +321,7 @@ class Client:
         querystring = urllib.parse.urlencode(querystring)
 
         return self._post_request(req, querystring)
-        
+
     def query_order(self, symbol, orderId):
         '''
         GET
@@ -419,7 +408,7 @@ class Client:
                                               'timestamp' : self.timestamp()})
 
         return self._post_request(req, querystring)
-    
+
     def change_leverage(self, symbol, leverage):
         '''
         POST
@@ -487,7 +476,7 @@ class Client:
         querystring = urllib.parse.urlencode({'timestamp' : self.timestamp()})
         
         return self._post_request(req, querystring)
-    
+
     def get_listen_key(self):
         return self.start_stream()['listenKey']
 
